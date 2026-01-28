@@ -1,10 +1,3 @@
-// export interface User {
-//   id: number;
-//   name: string;
-//   username: string;
-//   email: string;
-// }
-
 import { User } from '../types';
 
 const users: User[] = [

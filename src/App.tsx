@@ -7,16 +7,6 @@ import { UserInfo } from './components/UserInfo';
 import { TodoList } from './components/TodoList';
 import { TodoWithUser } from './types';
 
-// export interface Todos extends Todo {
-//   id: number;
-//   title: string;
-//   completed: boolean;
-//   userId: number;
-//   user: User | undefined;
-// }
-
-// export type TodoWithUser = Todo & { user?: User };
-
 function getUserById(userId: number) {
   return usersFromServer.find(user => user.id === userId);
 }
@@ -38,7 +28,7 @@ export const App = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isTitleErrorBoolean = !title;
+    const isTitleErrorBoolean = !title.trim();
     const isUserErrorBoolean = !userId;
 
     setIsTitleError(isTitleErrorBoolean);
@@ -61,6 +51,20 @@ export const App = () => {
     setUserId(0);
   };
 
+  const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+    if (isTitleError) {
+      setIsTitleError(false);
+    }
+  };
+
+  const handleUserId = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setUserId(+event.target.value);
+    if (isUserIdError) {
+      setIsUserIdError(false);
+    }
+  };
+
   return (
     <div className="App">
       <h1>Add todo form</h1>
@@ -73,24 +77,14 @@ export const App = () => {
             data-cy="titleInput"
             placeholder="Enter a title"
             value={title}
-            onChange={event => {
-              setTitle(event.target.value);
-              setIsTitleError(!event.target.value);
-            }}
+            onChange={handleTitle}
           />
           {isTitleError && <span className="error">Please enter a title</span>}
         </div>
 
         <div className="field">
           <label htmlFor="userSelect">User: </label>
-          <select
-            data-cy="userSelect"
-            value={userId}
-            onChange={event => {
-              setUserId(+event.target.value);
-              setIsUserIdError(!event.target.value);
-            }}
-          >
+          <select data-cy="userSelect" value={userId} onChange={handleUserId}>
             <option value="0" disabled>
               Choose a user
             </option>

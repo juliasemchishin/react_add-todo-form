@@ -1,9 +1,11 @@
-export interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-  userId: number;
-}
+// export interface Todo {
+//   id: number;
+//   title: string;
+//   completed: boolean;
+//   userId: number;
+// }
+
+import { Todo } from '../types';
 
 const todos: Todo[] = [
   {

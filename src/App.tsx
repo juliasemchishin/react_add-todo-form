@@ -1,10 +1,11 @@
 import './App.scss';
 
-import usersFromServer, { User } from './api/users';
-import todosFromServer, { Todo } from './api/todos';
+import usersFromServer from './api/users';
+import todosFromServer from './api/todos';
 import React, { useState } from 'react';
 import { UserInfo } from './components/UserInfo';
 import { TodoList } from './components/TodoList';
+import { TodoWithUser } from './types';
 
 // export interface Todos extends Todo {
 //   id: number;
@@ -14,7 +15,7 @@ import { TodoList } from './components/TodoList';
 //   user: User | undefined;
 // }
 
-export type TodoWithUser = Todo & { user?: User };
+// export type TodoWithUser = Todo & { user?: User };
 
 function getUserById(userId: number) {
   return usersFromServer.find(user => user.id === userId);
@@ -48,7 +49,7 @@ export const App = () => {
     }
 
     const newTodo: TodoWithUser = {
-      id: Math.max(...todosState.map(t => t.id)) + 1,
+      id: Math.max(...todosState.map(todo => todo.id)) + 1,
       title,
       completed: false,
       userId,
@@ -76,7 +77,6 @@ export const App = () => {
               setTitle(event.target.value);
               setIsTitleError(!event.target.value);
             }}
-            onBlur={event => setIsTitleError(!event.target.value)}
           />
           {isTitleError && <span className="error">Please enter a title</span>}
         </div>
@@ -90,7 +90,6 @@ export const App = () => {
               setUserId(+event.target.value);
               setIsUserIdError(!event.target.value);
             }}
-            onBlur={event => setIsUserIdError(!event.target.value)}
           >
             <option value="0" disabled>
               Choose a user

@@ -1,5 +1,5 @@
 import { TodoInfo } from '../TodoInfo';
-import { TodoWithUser } from '../../App';
+import { TodoWithUser } from '../../types';
 
 interface Props {
   todos: TodoWithUser[];

@@ -1,5 +1,5 @@
-import { TodoWithUser } from '../../App';
 import classNames from 'classnames';
+import { TodoWithUser } from '../../types';
 
 type Props = {
   todo: TodoWithUser;
